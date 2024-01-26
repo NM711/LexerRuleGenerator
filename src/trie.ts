@@ -1,8 +1,5 @@
 import type { TrieNode } from "./types/trie.types";
 
-// The search or insert kinda takes a shit when there is repeating characters, it just adds an extra one
-// cos fuck me I guess.
-
 class TrieTree {
   private root: TrieNode;
 
@@ -18,8 +15,7 @@ class TrieTree {
 
   private initNode(): TrieNode {
     return {
-      children: new Map(),
-      isEndOfWord: false
+      children: new Map()
     };
   };
 
@@ -35,16 +31,9 @@ class TrieTree {
 
     for (let i = 0; i < word.length; ++i) {
       const current = word[i];
-      const next = word[i + 1];
 
       if (!node.children.has(current)) {
-        
         const child = this.initNode();
-
-        if (!next) {
-          child.isEndOfWord = true;
-        };
-
         node.children.set(current, child);
       };
 

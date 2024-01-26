@@ -1,91 +1,138 @@
 import BioGenerator from "../src/generator";
+import BioTester from "../lib/testing";
 import fs from "node:fs";
+import { SQLTokens, MyTokens, RepeatingSource } from "./test.enums";
 
-enum MyTokens {
-  GREET_CONSTRUCT = 1,
-  HELLO,
-  HOW,
-  DOO,
-  OSPECIAL,
+function singleStringTest() {
+  const generator = new BioGenerator<MyTokens>();
+
+  generator.source = "HELLO WORLD HOW DO YOUU DOOOOO!!!!!";
+
+
+  generator.defineTokenRules([
+    {
+      id: MyTokens.OSPECIAL,
+      value: "OO!",
+    },
+    {
+      id: MyTokens.DOO,
+      value: "O!"
+    },
+    {
+      id: MyTokens.HELLO,
+      value: "HELLO"
+    },
+    {
+      id: MyTokens.HOW,
+      value: "HOW"
+    }, 
+    {
+      id: MyTokens.DOO,
+      value: "DOO"
+    }
+  ]);
+
+  generator.definePatternRule(MyTokens.ALPHABET, "[a-zA-Z]");
+  generator.definePatternRule(MyTokens.WS, "[ \t]+")
+  generator.tokenize();
+  return generator.retrieve;
 };
 
-enum SQLTokens {
-  CREATE = 1,
-  TABLE,
-  OPENING_PARENTHESIS,
-  CLOSING_PARENTHESIS,
-  SEMICOLON,
-  SEPERATOR
+function sqlSchemaTest() {
+  const schema = fs.readFileSync("./test/test.sql", { encoding: "utf-8" });
+
+  const generator = new BioGenerator<SQLTokens>();
+
+  generator.source = schema; 
+
+  generator.defineTokenRules([
+    {
+      id: SQLTokens.CREATE_TABLE,
+      value: "CREATE TABLE"
+    },
+    {
+      id: SQLTokens.PRIMARY_KEY,
+      value: "PRIMARY KEY"
+    },
+    {
+      id: SQLTokens.TEXT,
+      value: "TEXT"
+    },
+    {
+      id: SQLTokens.VARCHAR,
+      value: "VARCHAR"
+    },
+    {
+      id: SQLTokens.INT,
+      value: "INT"
+    },
+    {
+      id: SQLTokens.UNIQUE,
+      value: "UNIQUE"
+    },
+    {
+      id: SQLTokens.SEMICOLON,
+      value: ";"
+    },
+    {
+      id: SQLTokens.SEPERATOR,
+      value: ","
+    },
+    {
+      id: SQLTokens.OPENING_PARENTHESIS,
+      value: "("
+    },
+    {
+      id: SQLTokens.CLOSING_PARENTHESIS,
+      value: ")"
+    }
+  ]);
+
+  generator.definePatternRule(SQLTokens.ALPHABET, "[a-zA-Z_]");
+  generator.definePatternRule(SQLTokens.NUMBER, "[0-9]");
+  generator.definePatternRule(SQLTokens.WS, "[ \t]+", false)
+
+  generator.tokenize();
+  console.log(generator.retrieve)
+  return generator.retrieve;
 };
 
-enum RepeatingSource {
-  HELPPPP = 1,
-  PEOPLE,
-  HII,
-  II
+function repeatingStringTest() {
+  const generator = new BioGenerator<RepeatingSource>();
+
+  generator.source = "HELOOOOHELPPPPPPEOPLE,HOWWWWDOYOUUDOOOO   HIIIII"
+
+  generator.defineTokenRules([
+    {
+      id: RepeatingSource.HELPPPP,
+      value: "helpppp"
+    },
+    {
+      id: RepeatingSource.HII,
+      value: "hii"
+    },
+    {
+      id: RepeatingSource.II,
+      value: "ii"
+    },
+    {
+      id: RepeatingSource.PEOPLE,
+      value: "people"
+    }
+  ]);
+
+  generator.tokenize();
+  return generator.retrieve;
 };
 
+const tester = new BioTester();
 
-class Test {
-  constructor () {};
+// tester.test(["hello", "how", "doo", "oo!"], singleStringTest());
+tester.test(["create table", "create table", "create table"], sqlSchemaTest())
 
-  public test1() {
-    const generator = new BioGenerator<MyTokens>();
+tester.execute();
 
-    generator.source = "HELLO WORLD HOW DO YOUU DOOOOO!!!!!";
-    
-    generator.defineTokenRule(MyTokens.OSPECIAL, "OO!");
-    generator.defineTokenRule(MyTokens.DOO, "O!");
-    generator.defineTokenRule(MyTokens.HELLO, "HELLO");
-    generator.defineTokenRule(MyTokens.HOW, "HOW");
-    generator.defineTokenRule(MyTokens.DOO, "DOO");
-    generator.tokenize();
-    const tokens = generator.retrieve;
-    console.log(tokens);
-  };
+const tokens = sqlSchemaTest();
 
-  /**
-   * Sql string test.
-   */
+fs.writeFileSync("./a.json", JSON.stringify(tokens, null, 2));
 
-  public test2() {
-   const schema = fs.readFileSync("./test/test.sql", { encoding: "utf-8" });
-
-    const generator = new BioGenerator<SQLTokens>();
-
-    generator.source = schema; 
-
-    generator.defineTokenRule(SQLTokens.CREATE, "create");
-    generator.defineTokenRule(SQLTokens.TABLE, "table");
-    generator.defineTokenRule(SQLTokens.SEMICOLON, ";");
-    generator.defineTokenRule(SQLTokens.SEPERATOR, ",");
-    generator.defineTokenRule(SQLTokens.OPENING_PARENTHESIS, "(");
-    generator.defineTokenRule(SQLTokens.CLOSING_PARENTHESIS, ")");
-    generator.tokenize();
-    
-    const tokens = generator.retrieve;
-
-    console.log(tokens);
-  };
-
-  public test3() {
-    const generator = new BioGenerator<RepeatingSource>();
-
-    generator.source = "HELOOOOHELPPPPPPEOPLE,HOWWWWDOYOUUDOOOO   HIIIII"
-
-    generator.defineTokenRule(RepeatingSource.HELPPPP, "helpppp");
-    generator.defineTokenRule(RepeatingSource.HII, "hii");
-    generator.defineTokenRule(RepeatingSource.II, "ii");
-    generator.defineTokenRule(RepeatingSource.PEOPLE, "people");
-    generator.tokenize();
-    const tokens = generator.retrieve;
-
-    console.log(tokens);
-  };
-};
-
-const tests = new Test();
-
-tests.test1();
-tests.test2();
-tests.test3();

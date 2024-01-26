@@ -7,8 +7,9 @@ interface Options {
 
 class BioGenerator<ID> implements GeneratorTypes.IGenerator<ID> {
   private data: string[];
-  // later on determine wether you should use a map
   private rules: GeneratorTypes.RuleMap<ID>;
+  // pattern rules are to be executed after a failed rule lookup.
+  private patternRules: GeneratorTypes.RegexRule<ID>[];
   private tokens: GeneratorTypes.Token<ID>[];
   private info: GeneratorTypes.LineInfo;
   private tree: TrieTree;
@@ -16,6 +17,7 @@ class BioGenerator<ID> implements GeneratorTypes.IGenerator<ID> {
 
   constructor(options?: Options) {
     this.tokens = [];
+    this.patternRules = [];
     this.rules = new Map();
     this.tree = new TrieTree();
     this.info = this.initInfo();
@@ -25,7 +27,7 @@ class BioGenerator<ID> implements GeneratorTypes.IGenerator<ID> {
   private initInfo(): GeneratorTypes.LineInfo {
     return {
       line: 1,
-      char: 1
+      char: 0
     };
   };
   /**
@@ -62,18 +64,29 @@ class BioGenerator<ID> implements GeneratorTypes.IGenerator<ID> {
     });
   };
 
+ /**
+  * @method defineTokenRules
+  * @param rules
+  * @description
+  * Sets many token rules at once, and attempts to match strings with the given rules during tokenization.
+  */
+
+  public defineTokenRules(rules: GeneratorTypes.RuleObj<ID>[]) {
+    for (const { id, value } of rules) {
+      this.defineTokenRule(id, value);
+    };
+  };
+
   /**
    * @method defineToken
    * @param id
    * @param rule
    * @description
-   * Sets a token rule for the given string literal and during generation, provides an identifier which was set for this rule here, if
-   * there is a match.
+   * Sets a single token rule by using the provided literal and identifier, it attempts to match strings with the given rule
+   * during tokenization
    */
 
-  // yet to implement
-
-  public defineTokenRule(id: ID, rule: string): void {
+  private defineTokenRule(id: ID, rule: string): void {
     
     if (!this.options.caseSensitive) {
       rule = rule.toLowerCase();
@@ -88,52 +101,21 @@ class BioGenerator<ID> implements GeneratorTypes.IGenerator<ID> {
    * @param id
    * @param rule
    * @description
-   * Similarly to defineToken, this method sets a new token rule for the given regex and during generation provides the matching string,
-   * with the provided identifier.
+   * Similarly to defineToken, a new rule is declared for a token where regex is matched against a string. But, it only matches
+   * characters. Meaning that if you need to match anything greater than a single character, you would need to use defineTokenRule or
+   * defineConstruct.
+   *
+   * @example
+   * // matches characters that are part of the alphabet with a given single char.
+   * defineTokenRule(5, /[A-Za-z]/);
+   *
+   * // matches characters that are numbers 0-9 with the given single char.
+   * defineTokenRule(7, /[0-9]/);
    */
 
-  // public definePatternRule(id: ID, rule: RegExp) {
-    // this.pushToken(id, rule);
-  // };
-
-  /**
-   * @method defineConstruct
-   * @param id 
-   * @param steps 
-   * @description
-   * Constructs are rules that aim to implement more than a single token or literal,
-   * they are intended to lex sentence like rules!
-   */
-
-  public defineConstructRule(id: ID, ...steps: GeneratorTypes.ConstructArgument<number>[]): void {
-    if (steps.length <= 1) {
-      throw new Error(`Constructs are rules made up of more than one literals or tokens, current length is of ${steps.length}!`)
-    };
-
-    let constructedRule: string = "";
-
-    for (const step of steps) {
-      if (step.kind !== "TOKEN") {
-        constructedRule += step.value;
-        this.tree.insert(step.value);
-        continue;
-      };
-
-      let isMatch: boolean = false;
-
-      for (const [value, id] of Object.entries(this.rules)) {
-        if (id === step.tokenId) {
-          isMatch = true;
-          constructedRule += value;
-        };
-      };
-
-      if (!isMatch) {
-        throw new Error("Expected a valid rule id!");
-      };
-    };
-
-    this.rules.set(constructedRule, id);
+  public definePatternRule(id: ID, rule: string, ignore: boolean = false) {
+    const regRule = new RegExp(`^${rule}$`);
+    this.patternRules.push({ rule: regRule, id, ignore });
   };
 
   private updateLineInfo(char: string) {
@@ -149,56 +131,84 @@ class BioGenerator<ID> implements GeneratorTypes.IGenerator<ID> {
      return this.options.caseSensitive ? this.tree.search(word) : this.tree.search(word.toLowerCase());
   };
 
+  private isWordMatch(word: string): boolean {
+    return this.isValid(word) && this.rules.has(word);
+  };
+
+  private getIdAndPush(word: string) {
+    const ruleId = this.rules.get(word) as ID;
+    this.pushToken(ruleId, word);
+  };
+
+  private matchRegexRule(str: string): GeneratorTypes.RegexRuleState {
+    for (const { rule, ignore, id } of this.patternRules) {
+      if (rule.test(str) && !ignore) {
+        this.pushToken(id, str);
+        return GeneratorTypes.RegexRuleState.VALID;
+      } else if (rule.test(str) && ignore) {
+        return GeneratorTypes.RegexRuleState.IGNORE
+      };
+    };
+    return GeneratorTypes.RegexRuleState.INVALID;
+  };
+
   public tokenize(): void {
     let word: string = "";
-    // const matchedLineNums: Set<string> = new Set([]);
-
-    // const possibleRecheks: {value: string,  index: number}[][] = [];
-
-    // just trynna get shit to work, ignore the comments :)
-
-    for (let j = 0; j < this.data.length; ++j) {
-      const current = this.data[j];
-      // const next = this.data[j + 1];
+    for (let i = 0; i < this.data.length; ++i) {
+      const current = this.data[i];
+      const next = this.data[i + 1];
 
       word += current;
+
       this.updateLineInfo(current);
 
-      if (this.isValid(word) && this.rules.has(word)) {
-        const ruleId = this.rules.get(word) as ID;
-        this.pushToken(ruleId, word);
-      } else if (!this.isValid(word)) {
+
+      console.log(this.isValid(word), word)
+
+      if (this.isWordMatch(word)) {
+        
+        this.getIdAndPush(word);
+        word = "";
+
+      } else if (!this.isValid(word) && word.length === 0) {
+        
+        this.matchRegexRule(word);
+        word = "";
+
+      } else if (!this.isValid(word) && word.length > 0) {
+
+        let temp: string[] = word.split("");
+
+          if (next !== undefined) {
+            temp = `${word}${next}`.split("");
+            
+            console.log(next)
+            this.updateLineInfo(next);
+            ++i
+          };
+
+        while (temp.length > 0) {
+          const consumed = temp.shift() as string;
+          const matchReg = this.matchRegexRule(consumed);
+          const potentialMatch = temp.join("");
+
+          // note mathcReg = 0 = false, so ! is valid
+          if (!matchReg && !this.rules.has(consumed) && consumed !== "\n") {
+            throw new GeneratorTypes.SyntaxError(`invalid lexeme found "${consumed}" at "${word}"`, this.info);
+          } else if (matchReg === GeneratorTypes.RegexRuleState.IGNORE) {
+            continue; 
+          } else if (this.rules.has(consumed)) {
+            this.getIdAndPush(consumed);
+            continue;
+          } else if (this.isWordMatch(potentialMatch)) {
+            console.log(potentialMatch)
+            this.getIdAndPush(potentialMatch);
+            break;
+          };
+        };
+
         word = "";
       };
-
-
-      // if (!this.isValid(initialChar)) {
-      //   continue;
-      // };
-
-      // for (let k = j; k < this.data.length; ++k) {
-
-      //   const innerChar = this.data[k];
-      //   word += innerChar;
-
-      //   if (innerChar === "\n") {
-      //     ++info.line;
-      //     info.char = 1;
-      //   } else {
-      //     // console.log(k, info)
-      //     ++info.char;
-      //   };
- 
-      //   if (this.isValid(word) && this.rules.has(word) && !matchedLineNums.has(JSON.stringify(info))) {
-      //     matchedLineNums.add(JSON.stringify(info));
-      //     const ruleId = this.rules.get(word) as ID;
-      //     this.pushToken(ruleId, word, info);
-
-      //     word = "";
-      //   } else if (!this.isValid(word)) {
-      //     word = "";
-      //   };
-      // };
     };
   };
 };
