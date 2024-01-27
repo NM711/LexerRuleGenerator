@@ -1,0 +1,8 @@
+func hello () {
+  let hi Int = 0;
+  const hello String = "hello world";
+
+        if (hi) {
+            const someRandomValue Int = 5;
+        };
+};

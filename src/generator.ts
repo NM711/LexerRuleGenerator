@@ -8,8 +8,6 @@ interface Options {
 class BioGenerator<ID> implements GeneratorTypes.IGenerator<ID> {
   private data: string[];
   private rules: GeneratorTypes.RuleMap<ID>;
-  // pattern rules are to be executed after a failed rule lookup.
-  private patternRules: GeneratorTypes.RegexRule<ID>[];
   private tokens: GeneratorTypes.Token<ID>[];
   private info: GeneratorTypes.LineInfo;
   private tree: TrieTree;
@@ -17,7 +15,6 @@ class BioGenerator<ID> implements GeneratorTypes.IGenerator<ID> {
 
   constructor(options?: Options) {
     this.tokens = [];
-    this.patternRules = [];
     this.rules = new Map();
     this.tree = new TrieTree();
     this.info = this.initInfo();
@@ -73,27 +70,51 @@ class BioGenerator<ID> implements GeneratorTypes.IGenerator<ID> {
 
   public defineTokenRules(rules: GeneratorTypes.RuleObj<ID>[]) {
     for (const { id, value } of rules) {
-      this.defineTokenRule(id, value);
+      this.defineRule(id, value, false);
     };
   };
 
-  /**
-   * @method defineToken
-   * @param id
-   * @param rule
-   * @description
-   * Sets a single token rule by using the provided literal and identifier, it attempts to match strings with the given rule
-   * during tokenization
-   */
+  // TOKENS never get ignored.
 
-  private defineTokenRule(id: ID, rule: string): void {
+  private defineRule(id: ID, rule: string, ignore: boolean): void {
     
     if (!this.options.caseSensitive) {
       rule = rule.toLowerCase();
     };
 
-    this.rules.set(rule, id);
+    this.rules.set(rule, {
+      id,
+      ignore
+    });
+
     this.tree.insert(rule);
+  };
+
+  /**
+   * @method defineCollections
+   * @param collections
+   * @description
+   * Collections are strings of sequences of characters, or single characters. That get pushed to the rule map, in order to match
+   * single characters with the provided sequence of rules.
+   *
+   * @example
+   * // value gets converted into an array of characters [a-z], each getting pushed to the map with the given id value.
+   * defineCollections([
+   *  {
+   *    id: 3,
+   *    value: "abcdefghijklmnopqrstuvwxyz",
+   *    ignore: false
+   *  }
+   * ])
+   */
+
+  public defineCollections(collections: GeneratorTypes.Collection<ID>[]): void {
+    for (const { id, value, ignore  } of collections) {
+      const values = value.split("");
+      for (const char of values) {
+        this.defineRule(id, char, ignore);
+      };
+    };
   };
 
   /**
@@ -113,10 +134,10 @@ class BioGenerator<ID> implements GeneratorTypes.IGenerator<ID> {
    * defineTokenRule(7, /[0-9]/);
    */
 
-  public definePatternRule(id: ID, rule: string, ignore: boolean = false) {
-    const regRule = new RegExp(`^${rule}$`);
-    this.patternRules.push({ rule: regRule, id, ignore });
-  };
+  // public definePatternRule(id: ID, rule: string, ignore: boolean = false) {
+    // const regRule = new RegExp(`^${rule}$`);
+    // this.patternRules.push({ rule: regRule, id, ignore });
+  // };
 
   private updateLineInfo(char: string) {
     if (char === "\n") {
@@ -136,78 +157,51 @@ class BioGenerator<ID> implements GeneratorTypes.IGenerator<ID> {
   };
 
   private getIdAndPush(word: string) {
-    const ruleId = this.rules.get(word) as ID;
-    this.pushToken(ruleId, word);
-  };
+    const data = this.rules.get(word) as GeneratorTypes.Rule<ID>;
 
-  private matchRegexRule(str: string): GeneratorTypes.RegexRuleState {
-    for (const { rule, ignore, id } of this.patternRules) {
-      if (rule.test(str) && !ignore) {
-        this.pushToken(id, str);
-        return GeneratorTypes.RegexRuleState.VALID;
-      } else if (rule.test(str) && ignore) {
-        return GeneratorTypes.RegexRuleState.IGNORE
-      };
+    if (!data.ignore) {
+      this.pushToken(data.id, word);
     };
-    return GeneratorTypes.RegexRuleState.INVALID;
   };
 
   public tokenize(): void {
+
+    if (!this.data) {
+      throw new GeneratorTypes.LexerError("Data source has not been set!");
+    };
+
     let word: string = "";
     for (let i = 0; i < this.data.length; ++i) {
       const current = this.data[i];
-      const next = this.data[i + 1];
-
+      let next = this.data[i + 1];
       word += current;
-
       this.updateLineInfo(current);
 
+      const temp: string = word + next;
 
-      console.log(this.isValid(word), word)
-
-      if (this.isWordMatch(word)) {
-        
+      if (this.isValid(word) && this.isValid(temp)) {
+        // console.log(`CONTINUEDTEMPT: ${temp}`)
+        continue;
+      } else if (this.isWordMatch(word) && !this.isValid(temp)) {
+        // console.log(`PUSHED ${word}, TEMP: ${temp}`)
         this.getIdAndPush(word);
         word = "";
+      } else {
 
-      } else if (!this.isValid(word) && word.length === 0) {
-        
-        this.matchRegexRule(word);
-        word = "";
+        const split = word.split("");
+       
+        const consumed = split.shift();
 
-      } else if (!this.isValid(word) && word.length > 0) {
-
-        let temp: string[] = word.split("");
-
-          if (next !== undefined) {
-            temp = `${word}${next}`.split("");
-            
-            console.log(next)
-            this.updateLineInfo(next);
-            ++i
-          };
-
-        while (temp.length > 0) {
-          const consumed = temp.shift() as string;
-          const matchReg = this.matchRegexRule(consumed);
-          const potentialMatch = temp.join("");
-
-          // note mathcReg = 0 = false, so ! is valid
-          if (!matchReg && !this.rules.has(consumed) && consumed !== "\n") {
-            throw new GeneratorTypes.SyntaxError(`invalid lexeme found "${consumed}" at "${word}"`, this.info);
-          } else if (matchReg === GeneratorTypes.RegexRuleState.IGNORE) {
-            continue; 
-          } else if (this.rules.has(consumed)) {
-            this.getIdAndPush(consumed);
-            continue;
-          } else if (this.isWordMatch(potentialMatch)) {
-            console.log(potentialMatch)
-            this.getIdAndPush(potentialMatch);
-            break;
-          };
+        if (consumed && this.isWordMatch(consumed)) {
+          this.getIdAndPush(consumed);
+        } else {
+          throw new GeneratorTypes.SyntaxError(`Unexpected found in "${word}"`, this.info);
         };
+       
+        // console.log(split)
 
-        word = "";
+        word = split.join("");
+        continue;
       };
     };
   };

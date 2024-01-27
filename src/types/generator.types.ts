@@ -1,22 +1,18 @@
 namespace GeneratorTypes {
 
-  export enum RegexRuleState {
-    INVALID,
-    VALID,
-    IGNORE,
-  };
-
   export type RuleObj<ID = number> = { value: string, id: ID };
 
-  export type RuleMap<ID = number> = Map<string, ID>;
+  export type Rule<ID> = { id: ID, ignore: boolean };
+
+  export type RuleMap<ID = number> = Map<string, Rule<ID>>;
   
-  export type RegexRule<ID = number> = { rule: RegExp, id: ID, ignore: boolean };
-  /**
-  * Associates the token id to the construct argument, IF the token rule has been defined already.
-  */
+  export type RegexRule<ID = number> = { rule: RegExp, id: ID };
+  
+  export type Collection<ID = number> = { id: ID, value: string, ignore: boolean };
 
   export interface IGenerator<ID = number> {
-    defineTokenRules(rules: GeneratorTypes.RuleObj<ID>[]): void;
+    defineTokenRules(rules: RuleObj<ID>[]): void;
+    defineCollections(collections: Collection<ID>[]): void;
     definePatternRule(id: ID, rule: string, ignore: boolean): void;
     tokenize(): void;
   };
@@ -36,6 +32,12 @@ namespace GeneratorTypes {
   export class SyntaxError extends Error {
     constructor (message: string, info: LineInfo) {
       super(`${message}. (line: ${info.line}, char: ${info.char})`);
+    };
+  };
+
+  export class LexerError extends Error {
+    constructor (message: string) {
+      super(message);
     };
   };
 };

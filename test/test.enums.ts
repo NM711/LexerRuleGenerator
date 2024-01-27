@@ -17,6 +17,8 @@ export enum SQLTokens {
   TEXT,
   PRIMARY_KEY,
   UNIQUE,
+  NOT_NULL,
+  REFERENCES,
   ALPHABET,
   NUMBER,
   OPENING_PARENTHESIS,
@@ -26,9 +28,21 @@ export enum SQLTokens {
   WS
 };
 
-export enum RepeatingSource {
-  HELPPPP = 1,
-  PEOPLE,
-  HII,
-  II
+export enum LangTokens {
+  FUNCTION = 1,
+  DOUBLE_QUOTE,
+  EQUAL,
+  NUMBER,
+  ALPHABET,
+  VARIABLE,
+  CONSTANT,
+  INT,
+  STRING,
+  IF,
+  BLOCK_OPEN,
+  BLOCK_CLOSE,
+  OPEN_PARENTHESIS,
+  CLOSE_PARENTHESIS,
+  SEMICOLON,
+  WS,
 };
