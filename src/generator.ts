@@ -71,12 +71,10 @@ class BioGenerator<ID> implements GeneratorTypes.IGenerator<ID> {
   */
 
   public defineTokenRules(rules: GeneratorTypes.RuleObj<ID>[]) {
-    for (const { id, value } of rules) {
-      this.defineRule(id, value, false);
+    for (const { id, value} of rules) {
+      this.defineRule(id, value, false); 
     };
   };
-
-  // TOKENS never get ignored.
 
   private defineRule(id: ID, rule: string, ignore: boolean): void {
     
@@ -96,8 +94,10 @@ class BioGenerator<ID> implements GeneratorTypes.IGenerator<ID> {
    * @method defineCollections
    * @param collections
    * @description
-   * Collections are strings whcich represent a sequence of characters, or single characters, which get split into an array.
-   * They get pushed to the rule map, in order to match single characters with the provided sequence of rules.
+   * Collections are strings which represent a sequence of characters, 
+   * or single characters, which get split into an array. 
+   * After being split each character is pushed to the rule map, in order to match input characters with the
+   * provided rule sequence.
    *
    * @example
    * // value gets converted into an array of characters [a-z], each getting pushed to the map with the given id value.
