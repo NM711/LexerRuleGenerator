@@ -25,6 +25,7 @@ export enum SQLTokens {
   CLOSING_PARENTHESIS,
   SEMICOLON,
   SEPERATOR,
+  LITERAL,
   WS
 };
 

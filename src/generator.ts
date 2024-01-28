@@ -8,6 +8,7 @@ interface Options {
 class BioGenerator<ID> implements GeneratorTypes.IGenerator<ID> {
   private data: string[];
   private rules: GeneratorTypes.RuleMap<ID>;
+  private toConcat: GeneratorTypes.IdsToConcat<ID>;
   private tokens: GeneratorTypes.Token<ID>[];
   private info: GeneratorTypes.LineInfo;
   private tree: TrieTree;
@@ -16,6 +17,7 @@ class BioGenerator<ID> implements GeneratorTypes.IGenerator<ID> {
   constructor(options?: Options) {
     this.tokens = [];
     this.rules = new Map();
+    this.toConcat = new Map();
     this.tree = new TrieTree();
     this.info = this.initInfo();
     this.options = options || { caseSensitive: false };
@@ -94,8 +96,8 @@ class BioGenerator<ID> implements GeneratorTypes.IGenerator<ID> {
    * @method defineCollections
    * @param collections
    * @description
-   * Collections are strings of sequences of characters, or single characters. That get pushed to the rule map, in order to match
-   * single characters with the provided sequence of rules.
+   * Collections are strings whcich represent a sequence of characters, or single characters, which get split into an array.
+   * They get pushed to the rule map, in order to match single characters with the provided sequence of rules.
    *
    * @example
    * // value gets converted into an array of characters [a-z], each getting pushed to the map with the given id value.
@@ -109,7 +111,7 @@ class BioGenerator<ID> implements GeneratorTypes.IGenerator<ID> {
    */
 
   public defineCollections(collections: GeneratorTypes.Collection<ID>[]): void {
-    for (const { id, value, ignore  } of collections) {
+    for (const { id, value, ignore } of collections) {
       const values = value.split("");
       for (const char of values) {
         this.defineRule(id, char, ignore);
@@ -118,26 +120,31 @@ class BioGenerator<ID> implements GeneratorTypes.IGenerator<ID> {
   };
 
   /**
-   * @method definePatternRule
-   * @param id
-   * @param rule
+   * @method defineConcat
+   * @param id 
+   * @param transition
    * @description
-   * Similarly to defineToken, a new rule is declared for a token where regex is matched against a string. But, it only matches
-   * characters. Meaning that if you need to match anything greater than a single character, you would need to use defineTokenRule or
-   * defineConstruct.
-   *
+   * Method that concats tokens of one type together, if a transition id is provided, the updated token's id
+   * will be updated. 
+   * 
    * @example
-   * // matches characters that are part of the alphabet with a given single char.
-   * defineTokenRule(5, /[A-Za-z]/);
-   *
-   * // matches characters that are numbers 0-9 with the given single char.
-   * defineTokenRule(7, /[0-9]/);
+   * 
+   * enum IDS = {
+   *   Alphabet = 1,
+   *   Literal
+   * }
+   * 
+   * // groups all non keyword specific tokens that are of alphabet together, then they are combined to
+   * // form a new token of id literal.
+   * 
+   * defineConcat(IDS.Alphabet, IDS.Literal);
    */
 
-  // public definePatternRule(id: ID, rule: string, ignore: boolean = false) {
-    // const regRule = new RegExp(`^${rule}$`);
-    // this.patternRules.push({ rule: regRule, id, ignore });
-  // };
+  public defineConcat(id: ID, transition: ID = id): void {
+    if (!this.toConcat.has(id)) {
+      this.toConcat.set(id, transition);
+    } else throw new GeneratorTypes.LexerError(`The id of "${id}" has already been set to be concatenated!`);
+  };
 
   private updateLineInfo(char: string) {
     if (char === "\n") {
@@ -164,6 +171,49 @@ class BioGenerator<ID> implements GeneratorTypes.IGenerator<ID> {
     };
   };
 
+  /**
+   * @method repass
+   * @descripion
+   * After the tokens are built initially, we use this method in order to apply concatenation and transitions
+   * to specific tokens, before sending the tokens to the user.
+   */
+
+  private repass() {
+    let matchedConcatId: ID | null = null;
+
+    let concated: string = "";
+    
+    for (let t = 0; t < this.tokens.length; ++t) {
+      const value = this.tokens[t];
+
+      if (this.toConcat.has(value.id) && !matchedConcatId) {
+        matchedConcatId = value.id;
+      };
+
+      if (this.toConcat.has(value.id) && matchedConcatId) {
+        this.info.line = value.line;
+        this.info.char = value.char;
+        concated += value.lexeme;
+
+        this.tokens.splice(t, 1);
+        // update state of t, since we removed an element from the array.
+        --t
+      } else if (!this.toConcat.has(value.id) && concated.length > 1 && matchedConcatId) {
+          const transitionId = this.toConcat.get(matchedConcatId) as ID;
+
+          this.tokens.splice(t, 0, {
+            id: transitionId,
+            lexeme: concated,
+            line: this.info.line,
+            char: this.info.char
+          })
+
+         concated = "";
+         matchedConcatId = null; 
+      };
+    };
+  };
+
   public tokenize(): void {
 
     if (!this.data) {
@@ -171,6 +221,7 @@ class BioGenerator<ID> implements GeneratorTypes.IGenerator<ID> {
     };
 
     let word: string = "";
+
     for (let i = 0; i < this.data.length; ++i) {
       const current = this.data[i];
       let next = this.data[i + 1];
@@ -180,16 +231,12 @@ class BioGenerator<ID> implements GeneratorTypes.IGenerator<ID> {
       const temp: string = word + next;
 
       if (this.isValid(word) && this.isValid(temp)) {
-        // console.log(`CONTINUEDTEMPT: ${temp}`)
         continue;
       } else if (this.isWordMatch(word) && !this.isValid(temp)) {
-        // console.log(`PUSHED ${word}, TEMP: ${temp}`)
         this.getIdAndPush(word);
         word = "";
       } else {
-
         const split = word.split("");
-       
         const consumed = split.shift();
 
         if (consumed && this.isWordMatch(consumed)) {
@@ -197,12 +244,13 @@ class BioGenerator<ID> implements GeneratorTypes.IGenerator<ID> {
         } else {
           throw new GeneratorTypes.SyntaxError(`Unexpected found in "${word}"`, this.info);
         };
-       
-        // console.log(split)
 
         word = split.join("");
-        continue;
       };
+    };
+
+    if (this.toConcat.size > 0) {
+      this.repass();
     };
   };
 };
