@@ -1,12 +1,11 @@
 export enum MyTokens {
-  GREET_CONSTRUCT = 1,
-  HELLO,
+  HELLO = 1,
   WS,
   HOW,
   DOO,
   OSPECIAL,
   ALPHABET,
-  WORLD
+  WORD
 };
 
 export enum SQLTokens {

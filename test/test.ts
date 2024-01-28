@@ -53,9 +53,11 @@ function singleStringTest() {
     },
   ]);
 
+  generator.defineConcat(MyTokens.ALPHABET, MyTokens.WORD);
+
   generator.tokenize();
   const tokens = generator.retrieve;
-
+  console.log(JSON.stringify(tokens, null, 2));
   return tokens;
 };
 
@@ -248,6 +250,10 @@ function languageTest() {
 const tester = new BioTester();
 
 tester.test(["hello", "how", "doo", "oo!"], singleStringTest());
+
+
+const sqlSchema = sqlSchemaTest();
+
 // what we expect in order
 tester.test([
   "create table",
@@ -270,6 +276,8 @@ tester.test([
   "not null",
   "int",
   "references",
+  "(",
+  ")",
   ")",
   ";",
   "create table",
@@ -282,9 +290,11 @@ tester.test([
   "not null",
   "int",
   "references",
+  "(",
+  ")",
   ")",
   ";"
-], sqlSchemaTest())
+], sqlSchema)
 
 tester.test([
   "func",
@@ -314,9 +324,3 @@ tester.test([
   "}",
   ";"
   ], languageTest())
-
-tester.execute();
-
-const tokens = sqlSchemaTest();
-fs.writeFileSync("./a.json", JSON.stringify(tokens, null, 2));
-
