@@ -45,7 +45,7 @@ class TrieTree {
    * @method search
    * @param word 
    * @description
-   * Checks wether a word exists within the tree.
+   * Checks whether a word exists within the tree.
    */
 
   public search(word: string): boolean {

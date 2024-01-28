@@ -6,26 +6,8 @@
     "char": 16
   },
   {
-    "id": 10,
-    "lexeme": "u",
-    "line": 1,
-    "char": 18
-  },
-  {
-    "id": 10,
-    "lexeme": "s",
-    "line": 1,
-    "char": 19
-  },
-  {
-    "id": 10,
-    "lexeme": "e",
-    "line": 1,
-    "char": 20
-  },
-  {
-    "id": 10,
-    "lexeme": "r",
+    "id": 16,
+    "lexeme": "user",
     "line": 1,
     "char": 21
   },
@@ -36,14 +18,8 @@
     "char": 23
   },
   {
-    "id": 10,
-    "lexeme": "i",
-    "line": 2,
-    "char": 8
-  },
-  {
-    "id": 10,
-    "lexeme": "d",
+    "id": 16,
+    "lexeme": "id",
     "line": 2,
     "char": 9
   },
@@ -60,86 +36,8 @@
     "char": 25
   },
   {
-    "id": 10,
-    "lexeme": "a",
-    "line": 2,
-    "char": 27
-  },
-  {
-    "id": 10,
-    "lexeme": "u",
-    "line": 2,
-    "char": 28
-  },
-  {
-    "id": 10,
-    "lexeme": "t",
-    "line": 2,
-    "char": 29
-  },
-  {
-    "id": 10,
-    "lexeme": "o",
-    "line": 2,
-    "char": 30
-  },
-  {
-    "id": 10,
-    "lexeme": "_",
-    "line": 2,
-    "char": 31
-  },
-  {
-    "id": 10,
-    "lexeme": "i",
-    "line": 2,
-    "char": 33
-  },
-  {
-    "id": 10,
-    "lexeme": "n",
-    "line": 2,
-    "char": 34
-  },
-  {
-    "id": 10,
-    "lexeme": "c",
-    "line": 2,
-    "char": 36
-  },
-  {
-    "id": 10,
-    "lexeme": "r",
-    "line": 2,
-    "char": 37
-  },
-  {
-    "id": 10,
-    "lexeme": "e",
-    "line": 2,
-    "char": 38
-  },
-  {
-    "id": 10,
-    "lexeme": "m",
-    "line": 2,
-    "char": 39
-  },
-  {
-    "id": 10,
-    "lexeme": "e",
-    "line": 2,
-    "char": 40
-  },
-  {
-    "id": 10,
-    "lexeme": "n",
-    "line": 2,
-    "char": 41
-  },
-  {
-    "id": 10,
-    "lexeme": "t",
+    "id": 16,
+    "lexeme": "auto_increment",
     "line": 3,
     "char": 1
   },
@@ -150,50 +48,8 @@
     "char": 2
   },
   {
-    "id": 10,
-    "lexeme": "u",
-    "line": 3,
-    "char": 10
-  },
-  {
-    "id": 10,
-    "lexeme": "s",
-    "line": 3,
-    "char": 11
-  },
-  {
-    "id": 10,
-    "lexeme": "e",
-    "line": 3,
-    "char": 12
-  },
-  {
-    "id": 10,
-    "lexeme": "r",
-    "line": 3,
-    "char": 13
-  },
-  {
-    "id": 10,
-    "lexeme": "n",
-    "line": 3,
-    "char": 14
-  },
-  {
-    "id": 10,
-    "lexeme": "a",
-    "line": 3,
-    "char": 15
-  },
-  {
-    "id": 10,
-    "lexeme": "m",
-    "line": 3,
-    "char": 16
-  },
-  {
-    "id": 10,
-    "lexeme": "e",
+    "id": 16,
+    "lexeme": "username",
     "line": 3,
     "char": 17
   },
@@ -211,19 +67,7 @@
   },
   {
     "id": 11,
-    "lexeme": "2",
-    "line": 3,
-    "char": 25
-  },
-  {
-    "id": 11,
-    "lexeme": "5",
-    "line": 3,
-    "char": 26
-  },
-  {
-    "id": 11,
-    "lexeme": "5",
+    "lexeme": "255",
     "line": 3,
     "char": 27
   },
@@ -264,26 +108,8 @@
     "char": 17
   },
   {
-    "id": 10,
-    "lexeme": "p",
-    "line": 6,
-    "char": 19
-  },
-  {
-    "id": 10,
-    "lexeme": "o",
-    "line": 6,
-    "char": 20
-  },
-  {
-    "id": 10,
-    "lexeme": "s",
-    "line": 6,
-    "char": 21
-  },
-  {
-    "id": 10,
-    "lexeme": "t",
+    "id": 16,
+    "lexeme": "post",
     "line": 6,
     "char": 22
   },
@@ -294,14 +120,8 @@
     "char": 24
   },
   {
-    "id": 10,
-    "lexeme": "i",
-    "line": 7,
-    "char": 8
-  },
-  {
-    "id": 10,
-    "lexeme": "d",
+    "id": 16,
+    "lexeme": "id",
     "line": 7,
     "char": 9
   },
@@ -318,86 +138,8 @@
     "char": 25
   },
   {
-    "id": 10,
-    "lexeme": "a",
-    "line": 7,
-    "char": 27
-  },
-  {
-    "id": 10,
-    "lexeme": "u",
-    "line": 7,
-    "char": 28
-  },
-  {
-    "id": 10,
-    "lexeme": "t",
-    "line": 7,
-    "char": 29
-  },
-  {
-    "id": 10,
-    "lexeme": "o",
-    "line": 7,
-    "char": 30
-  },
-  {
-    "id": 10,
-    "lexeme": "_",
-    "line": 7,
-    "char": 31
-  },
-  {
-    "id": 10,
-    "lexeme": "i",
-    "line": 7,
-    "char": 33
-  },
-  {
-    "id": 10,
-    "lexeme": "n",
-    "line": 7,
-    "char": 34
-  },
-  {
-    "id": 10,
-    "lexeme": "c",
-    "line": 7,
-    "char": 36
-  },
-  {
-    "id": 10,
-    "lexeme": "r",
-    "line": 7,
-    "char": 37
-  },
-  {
-    "id": 10,
-    "lexeme": "e",
-    "line": 7,
-    "char": 38
-  },
-  {
-    "id": 10,
-    "lexeme": "m",
-    "line": 7,
-    "char": 39
-  },
-  {
-    "id": 10,
-    "lexeme": "e",
-    "line": 7,
-    "char": 40
-  },
-  {
-    "id": 10,
-    "lexeme": "n",
-    "line": 7,
-    "char": 41
-  },
-  {
-    "id": 10,
-    "lexeme": "t",
+    "id": 16,
+    "lexeme": "auto_increment",
     "line": 8,
     "char": 1
   },
@@ -408,32 +150,8 @@
     "char": 2
   },
   {
-    "id": 10,
-    "lexeme": "t",
-    "line": 8,
-    "char": 10
-  },
-  {
-    "id": 10,
-    "lexeme": "i",
-    "line": 8,
-    "char": 11
-  },
-  {
-    "id": 10,
-    "lexeme": "t",
-    "line": 8,
-    "char": 12
-  },
-  {
-    "id": 10,
-    "lexeme": "l",
-    "line": 8,
-    "char": 13
-  },
-  {
-    "id": 10,
-    "lexeme": "e",
+    "id": 16,
+    "lexeme": "title",
     "line": 8,
     "char": 14
   },
@@ -451,19 +169,7 @@
   },
   {
     "id": 11,
-    "lexeme": "2",
-    "line": 8,
-    "char": 22
-  },
-  {
-    "id": 11,
-    "lexeme": "5",
-    "line": 8,
-    "char": 23
-  },
-  {
-    "id": 11,
-    "lexeme": "5",
+    "lexeme": "255",
     "line": 8,
     "char": 24
   },
@@ -486,68 +192,8 @@
     "char": 35
   },
   {
-    "id": 10,
-    "lexeme": "d",
-    "line": 9,
-    "char": 8
-  },
-  {
-    "id": 10,
-    "lexeme": "e",
-    "line": 9,
-    "char": 9
-  },
-  {
-    "id": 10,
-    "lexeme": "s",
-    "line": 9,
-    "char": 10
-  },
-  {
-    "id": 10,
-    "lexeme": "c",
-    "line": 9,
-    "char": 12
-  },
-  {
-    "id": 10,
-    "lexeme": "r",
-    "line": 9,
-    "char": 13
-  },
-  {
-    "id": 10,
-    "lexeme": "i",
-    "line": 9,
-    "char": 14
-  },
-  {
-    "id": 10,
-    "lexeme": "p",
-    "line": 9,
-    "char": 15
-  },
-  {
-    "id": 10,
-    "lexeme": "t",
-    "line": 9,
-    "char": 16
-  },
-  {
-    "id": 10,
-    "lexeme": "i",
-    "line": 9,
-    "char": 17
-  },
-  {
-    "id": 10,
-    "lexeme": "o",
-    "line": 9,
-    "char": 18
-  },
-  {
-    "id": 10,
-    "lexeme": "n",
+    "id": 16,
+    "lexeme": "description",
     "line": 9,
     "char": 19
   },
@@ -570,38 +216,8 @@
     "char": 33
   },
   {
-    "id": 10,
-    "lexeme": "a",
-    "line": 10,
-    "char": 8
-  },
-  {
-    "id": 10,
-    "lexeme": "u",
-    "line": 10,
-    "char": 9
-  },
-  {
-    "id": 10,
-    "lexeme": "t",
-    "line": 10,
-    "char": 10
-  },
-  {
-    "id": 10,
-    "lexeme": "h",
-    "line": 10,
-    "char": 11
-  },
-  {
-    "id": 10,
-    "lexeme": "o",
-    "line": 10,
-    "char": 12
-  },
-  {
-    "id": 10,
-    "lexeme": "r",
+    "id": 16,
+    "lexeme": "author",
     "line": 10,
     "char": 13
   },
@@ -618,26 +234,8 @@
     "char": 28
   },
   {
-    "id": 10,
-    "lexeme": "u",
-    "line": 10,
-    "char": 30
-  },
-  {
-    "id": 10,
-    "lexeme": "s",
-    "line": 10,
-    "char": 31
-  },
-  {
-    "id": 10,
-    "lexeme": "e",
-    "line": 10,
-    "char": 32
-  },
-  {
-    "id": 10,
-    "lexeme": "r",
+    "id": 16,
+    "lexeme": "user",
     "line": 10,
     "char": 33
   },
@@ -648,14 +246,8 @@
     "char": 34
   },
   {
-    "id": 10,
-    "lexeme": "i",
-    "line": 10,
-    "char": 35
-  },
-  {
-    "id": 10,
-    "lexeme": "d",
+    "id": 16,
+    "lexeme": "id",
     "line": 10,
     "char": 36
   },
@@ -666,92 +258,8 @@
     "char": 37
   },
   {
-    "id": 10,
-    "lexeme": "o",
-    "line": 10,
-    "char": 39
-  },
-  {
-    "id": 10,
-    "lexeme": "n",
-    "line": 10,
-    "char": 40
-  },
-  {
-    "id": 10,
-    "lexeme": "d",
-    "line": 10,
-    "char": 42
-  },
-  {
-    "id": 10,
-    "lexeme": "e",
-    "line": 10,
-    "char": 43
-  },
-  {
-    "id": 10,
-    "lexeme": "l",
-    "line": 10,
-    "char": 44
-  },
-  {
-    "id": 10,
-    "lexeme": "e",
-    "line": 10,
-    "char": 45
-  },
-  {
-    "id": 10,
-    "lexeme": "t",
-    "line": 10,
-    "char": 47
-  },
-  {
-    "id": 10,
-    "lexeme": "e",
-    "line": 10,
-    "char": 48
-  },
-  {
-    "id": 10,
-    "lexeme": "c",
-    "line": 10,
-    "char": 50
-  },
-  {
-    "id": 10,
-    "lexeme": "a",
-    "line": 10,
-    "char": 51
-  },
-  {
-    "id": 10,
-    "lexeme": "s",
-    "line": 10,
-    "char": 52
-  },
-  {
-    "id": 10,
-    "lexeme": "c",
-    "line": 10,
-    "char": 53
-  },
-  {
-    "id": 10,
-    "lexeme": "a",
-    "line": 10,
-    "char": 54
-  },
-  {
-    "id": 10,
-    "lexeme": "d",
-    "line": 10,
-    "char": 55
-  },
-  {
-    "id": 10,
-    "lexeme": "e",
+    "id": 16,
+    "lexeme": "ondeletecascade",
     "line": 11,
     "char": 1
   },
@@ -774,74 +282,8 @@
     "char": 17
   },
   {
-    "id": 10,
-    "lexeme": "p",
-    "line": 13,
-    "char": 19
-  },
-  {
-    "id": 10,
-    "lexeme": "o",
-    "line": 13,
-    "char": 20
-  },
-  {
-    "id": 10,
-    "lexeme": "s",
-    "line": 13,
-    "char": 21
-  },
-  {
-    "id": 10,
-    "lexeme": "t",
-    "line": 13,
-    "char": 22
-  },
-  {
-    "id": 10,
-    "lexeme": "_",
-    "line": 13,
-    "char": 23
-  },
-  {
-    "id": 10,
-    "lexeme": "c",
-    "line": 13,
-    "char": 24
-  },
-  {
-    "id": 10,
-    "lexeme": "o",
-    "line": 13,
-    "char": 25
-  },
-  {
-    "id": 10,
-    "lexeme": "m",
-    "line": 13,
-    "char": 26
-  },
-  {
-    "id": 10,
-    "lexeme": "m",
-    "line": 13,
-    "char": 27
-  },
-  {
-    "id": 10,
-    "lexeme": "e",
-    "line": 13,
-    "char": 28
-  },
-  {
-    "id": 10,
-    "lexeme": "n",
-    "line": 13,
-    "char": 29
-  },
-  {
-    "id": 10,
-    "lexeme": "t",
+    "id": 16,
+    "lexeme": "post_comment",
     "line": 13,
     "char": 30
   },
@@ -852,14 +294,8 @@
     "char": 32
   },
   {
-    "id": 10,
-    "lexeme": "i",
-    "line": 14,
-    "char": 8
-  },
-  {
-    "id": 10,
-    "lexeme": "d",
+    "id": 16,
+    "lexeme": "id",
     "line": 14,
     "char": 9
   },
@@ -876,86 +312,8 @@
     "char": 25
   },
   {
-    "id": 10,
-    "lexeme": "a",
-    "line": 14,
-    "char": 27
-  },
-  {
-    "id": 10,
-    "lexeme": "u",
-    "line": 14,
-    "char": 28
-  },
-  {
-    "id": 10,
-    "lexeme": "t",
-    "line": 14,
-    "char": 29
-  },
-  {
-    "id": 10,
-    "lexeme": "o",
-    "line": 14,
-    "char": 30
-  },
-  {
-    "id": 10,
-    "lexeme": "_",
-    "line": 14,
-    "char": 31
-  },
-  {
-    "id": 10,
-    "lexeme": "i",
-    "line": 14,
-    "char": 33
-  },
-  {
-    "id": 10,
-    "lexeme": "n",
-    "line": 14,
-    "char": 34
-  },
-  {
-    "id": 10,
-    "lexeme": "c",
-    "line": 14,
-    "char": 36
-  },
-  {
-    "id": 10,
-    "lexeme": "r",
-    "line": 14,
-    "char": 37
-  },
-  {
-    "id": 10,
-    "lexeme": "e",
-    "line": 14,
-    "char": 38
-  },
-  {
-    "id": 10,
-    "lexeme": "m",
-    "line": 14,
-    "char": 39
-  },
-  {
-    "id": 10,
-    "lexeme": "e",
-    "line": 14,
-    "char": 40
-  },
-  {
-    "id": 10,
-    "lexeme": "n",
-    "line": 14,
-    "char": 41
-  },
-  {
-    "id": 10,
-    "lexeme": "t",
+    "id": 16,
+    "lexeme": "auto_increment",
     "line": 15,
     "char": 1
   },
@@ -966,44 +324,8 @@
     "char": 2
   },
   {
-    "id": 10,
-    "lexeme": "c",
-    "line": 15,
-    "char": 10
-  },
-  {
-    "id": 10,
-    "lexeme": "o",
-    "line": 15,
-    "char": 11
-  },
-  {
-    "id": 10,
-    "lexeme": "n",
-    "line": 15,
-    "char": 12
-  },
-  {
-    "id": 10,
-    "lexeme": "t",
-    "line": 15,
-    "char": 13
-  },
-  {
-    "id": 10,
-    "lexeme": "e",
-    "line": 15,
-    "char": 14
-  },
-  {
-    "id": 10,
-    "lexeme": "n",
-    "line": 15,
-    "char": 15
-  },
-  {
-    "id": 10,
-    "lexeme": "t",
+    "id": 16,
+    "lexeme": "content",
     "line": 15,
     "char": 16
   },
@@ -1026,68 +348,8 @@
     "char": 29
   },
   {
-    "id": 10,
-    "lexeme": "t",
-    "line": 16,
-    "char": 8
-  },
-  {
-    "id": 10,
-    "lexeme": "a",
-    "line": 16,
-    "char": 9
-  },
-  {
-    "id": 10,
-    "lexeme": "r",
-    "line": 16,
-    "char": 10
-  },
-  {
-    "id": 10,
-    "lexeme": "g",
-    "line": 16,
-    "char": 11
-  },
-  {
-    "id": 10,
-    "lexeme": "e",
-    "line": 16,
-    "char": 12
-  },
-  {
-    "id": 10,
-    "lexeme": "t",
-    "line": 16,
-    "char": 13
-  },
-  {
-    "id": 10,
-    "lexeme": "_",
-    "line": 16,
-    "char": 14
-  },
-  {
-    "id": 10,
-    "lexeme": "p",
-    "line": 16,
-    "char": 15
-  },
-  {
-    "id": 10,
-    "lexeme": "o",
-    "line": 16,
-    "char": 16
-  },
-  {
-    "id": 10,
-    "lexeme": "s",
-    "line": 16,
-    "char": 17
-  },
-  {
-    "id": 10,
-    "lexeme": "t",
+    "id": 16,
+    "lexeme": "target_post",
     "line": 16,
     "char": 18
   },
@@ -1104,26 +366,8 @@
     "char": 33
   },
   {
-    "id": 10,
-    "lexeme": "p",
-    "line": 16,
-    "char": 35
-  },
-  {
-    "id": 10,
-    "lexeme": "o",
-    "line": 16,
-    "char": 36
-  },
-  {
-    "id": 10,
-    "lexeme": "s",
-    "line": 16,
-    "char": 37
-  },
-  {
-    "id": 10,
-    "lexeme": "t",
+    "id": 16,
+    "lexeme": "post",
     "line": 16,
     "char": 38
   },
@@ -1134,14 +378,8 @@
     "char": 39
   },
   {
-    "id": 10,
-    "lexeme": "i",
-    "line": 16,
-    "char": 40
-  },
-  {
-    "id": 10,
-    "lexeme": "d",
+    "id": 16,
+    "lexeme": "id",
     "line": 16,
     "char": 41
   },
@@ -1152,92 +390,8 @@
     "char": 42
   },
   {
-    "id": 10,
-    "lexeme": "o",
-    "line": 16,
-    "char": 44
-  },
-  {
-    "id": 10,
-    "lexeme": "n",
-    "line": 16,
-    "char": 45
-  },
-  {
-    "id": 10,
-    "lexeme": "d",
-    "line": 16,
-    "char": 47
-  },
-  {
-    "id": 10,
-    "lexeme": "e",
-    "line": 16,
-    "char": 48
-  },
-  {
-    "id": 10,
-    "lexeme": "l",
-    "line": 16,
-    "char": 49
-  },
-  {
-    "id": 10,
-    "lexeme": "e",
-    "line": 16,
-    "char": 50
-  },
-  {
-    "id": 10,
-    "lexeme": "t",
-    "line": 16,
-    "char": 52
-  },
-  {
-    "id": 10,
-    "lexeme": "e",
-    "line": 16,
-    "char": 53
-  },
-  {
-    "id": 10,
-    "lexeme": "c",
-    "line": 16,
-    "char": 55
-  },
-  {
-    "id": 10,
-    "lexeme": "a",
-    "line": 16,
-    "char": 56
-  },
-  {
-    "id": 10,
-    "lexeme": "s",
-    "line": 16,
-    "char": 57
-  },
-  {
-    "id": 10,
-    "lexeme": "c",
-    "line": 16,
-    "char": 58
-  },
-  {
-    "id": 10,
-    "lexeme": "a",
-    "line": 16,
-    "char": 59
-  },
-  {
-    "id": 10,
-    "lexeme": "d",
-    "line": 16,
-    "char": 60
-  },
-  {
-    "id": 10,
-    "lexeme": "e",
+    "id": 16,
+    "lexeme": "ondeletecascade",
     "line": 16,
     "char": 61
   },
@@ -1248,38 +402,8 @@
     "char": 1
   },
   {
-    "id": 10,
-    "lexeme": "a",
-    "line": 17,
-    "char": 9
-  },
-  {
-    "id": 10,
-    "lexeme": "u",
-    "line": 17,
-    "char": 10
-  },
-  {
-    "id": 10,
-    "lexeme": "t",
-    "line": 17,
-    "char": 11
-  },
-  {
-    "id": 10,
-    "lexeme": "h",
-    "line": 17,
-    "char": 12
-  },
-  {
-    "id": 10,
-    "lexeme": "o",
-    "line": 17,
-    "char": 13
-  },
-  {
-    "id": 10,
-    "lexeme": "r",
+    "id": 16,
+    "lexeme": "author",
     "line": 17,
     "char": 14
   },
@@ -1296,26 +420,8 @@
     "char": 28
   },
   {
-    "id": 10,
-    "lexeme": "u",
-    "line": 17,
-    "char": 30
-  },
-  {
-    "id": 10,
-    "lexeme": "s",
-    "line": 17,
-    "char": 31
-  },
-  {
-    "id": 10,
-    "lexeme": "e",
-    "line": 17,
-    "char": 32
-  },
-  {
-    "id": 10,
-    "lexeme": "r",
+    "id": 16,
+    "lexeme": "user",
     "line": 17,
     "char": 33
   },
@@ -1326,14 +432,8 @@
     "char": 34
   },
   {
-    "id": 10,
-    "lexeme": "i",
-    "line": 17,
-    "char": 35
-  },
-  {
-    "id": 10,
-    "lexeme": "d",
+    "id": 16,
+    "lexeme": "id",
     "line": 17,
     "char": 36
   },
@@ -1344,92 +444,8 @@
     "char": 37
   },
   {
-    "id": 10,
-    "lexeme": "o",
-    "line": 17,
-    "char": 39
-  },
-  {
-    "id": 10,
-    "lexeme": "n",
-    "line": 17,
-    "char": 40
-  },
-  {
-    "id": 10,
-    "lexeme": "d",
-    "line": 17,
-    "char": 42
-  },
-  {
-    "id": 10,
-    "lexeme": "e",
-    "line": 17,
-    "char": 43
-  },
-  {
-    "id": 10,
-    "lexeme": "l",
-    "line": 17,
-    "char": 44
-  },
-  {
-    "id": 10,
-    "lexeme": "e",
-    "line": 17,
-    "char": 45
-  },
-  {
-    "id": 10,
-    "lexeme": "t",
-    "line": 17,
-    "char": 47
-  },
-  {
-    "id": 10,
-    "lexeme": "e",
-    "line": 17,
-    "char": 48
-  },
-  {
-    "id": 10,
-    "lexeme": "c",
-    "line": 17,
-    "char": 50
-  },
-  {
-    "id": 10,
-    "lexeme": "a",
-    "line": 17,
-    "char": 51
-  },
-  {
-    "id": 10,
-    "lexeme": "s",
-    "line": 17,
-    "char": 52
-  },
-  {
-    "id": 10,
-    "lexeme": "c",
-    "line": 17,
-    "char": 53
-  },
-  {
-    "id": 10,
-    "lexeme": "a",
-    "line": 17,
-    "char": 54
-  },
-  {
-    "id": 10,
-    "lexeme": "d",
-    "line": 17,
-    "char": 55
-  },
-  {
-    "id": 10,
-    "lexeme": "e",
+    "id": 16,
+    "lexeme": "ondeletecascade",
     "line": 18,
     "char": 1
   },

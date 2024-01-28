@@ -1,7 +1,7 @@
 import BioGenerator from "../src/generator";
 import BioTester from "../lib/testing";
 import fs from "node:fs";
-import { SQLTokens, MyTokens, RepeatingSource, LangTokens } from "./test.enums";
+import { SQLTokens, MyTokens, LangTokens } from "./test.enums";
 
 const alphabet = "abcdefghijklmnopqrstuvwxyz";
 const numbers = "0123456789";
@@ -55,8 +55,6 @@ function singleStringTest() {
 
   generator.tokenize();
   const tokens = generator.retrieve;
-
-  console.log(tokens);
 
   return tokens;
 };
@@ -140,10 +138,16 @@ function sqlSchemaTest() {
       value: "\n",
       ignore: true
     },
-  ])
+  ]);
 
+  generator.defineConcat(SQLTokens.NUMBER);
+  generator.defineConcat(SQLTokens.ALPHABET, SQLTokens.LITERAL);
   generator.tokenize();
-  return generator.retrieve;
+  const tokens = generator.retrieve;
+
+  console.log(tokens);
+
+  return tokens;
 };
 
 function languageTest() {
@@ -230,7 +234,8 @@ function languageTest() {
       ignore: true
     },
   ]);
-  
+
+  generator.defineConcat(LangTokens.ALPHABET);
   generator.tokenize();
 
   const tokens = generator.retrieve;
@@ -283,10 +288,12 @@ tester.test([
 
 tester.test([
   "func",
+  "hello",
   "(",
   ")",
   "{",
   "let",
+  "hi",
   "Int",
   ";",
   "const",
@@ -311,6 +318,5 @@ tester.test([
 tester.execute();
 
 const tokens = sqlSchemaTest();
-
 fs.writeFileSync("./a.json", JSON.stringify(tokens, null, 2));
 
