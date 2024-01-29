@@ -25,11 +25,15 @@ append the next character to and test, this processes is repeated until the char
   hello => h (T) => e (T) => l (T) => l (T) => o (T)
 ```
 
-## API
+### Initial Setup
 
-### Setting The Source
+```bash
+  npm install biogen
+```
 
 ```ts
+  import BioGenerator from "biogen"
+
   enum MyTokens {
     HELLO = 1,
     WS,
@@ -41,7 +45,13 @@ append the next character to and test, this processes is repeated until the char
   };
 
   const lexer = new BioGenerator<MyTokens>();
+```
 
+## API
+
+### Setting The Source
+
+```ts
   // sets input
 
   lexer.source = "HELLO WORLD HOW DO YOUU DOOOOO!!!!!";
@@ -191,7 +201,7 @@ Below is an example.
 ## Testing
 
 If you wish to run tests the created tests,
-you can clone the repository (npm package not available yet) and, do the following:
+you can clone the repository, do the following:
 
 ```bash
   git clone https://github.com/NM711/LexerRuleGenerator.git

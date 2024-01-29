@@ -6,7 +6,7 @@ interface Options {
 };
 
 class BioGenerator<ID> implements GeneratorTypes.IGenerator<ID> {
-  private data: string[];
+  private data: string[] | null;
   private rules: GeneratorTypes.RuleMap<ID>;
   private toConcat: GeneratorTypes.IdsToConcat<ID>;
   private tokens: GeneratorTypes.Token<ID>[];
@@ -15,6 +15,7 @@ class BioGenerator<ID> implements GeneratorTypes.IGenerator<ID> {
   private options: Options;
 
   constructor(options?: Options) {
+    this.data = null;
     this.tokens = [];
     this.rules = new Map();
     this.toConcat = new Map();
