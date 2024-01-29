@@ -1,8 +1,34 @@
 {
   "scripts": {
-    "test": "npx tsx ./test/test.ts"
+    "test": "npx tsx ./test/test.ts",
+    "build": "rm -rf ./dist & tsc ./index.ts ./src/*.ts --outDir ./dir --declaration true"
   },
   "dependencies": {
     "@types/node": "^20.11.5"
-  }
+  },
+  "name": "biogen",
+  "description": "BioGen is a relatively simple lexer rule generator it provides an easy to use api, in which you can declare different token rules, transitions, and also set different options related to them. At the heart of BioGen, a trie tree (prefix tree) is used by the program in order to store the rules we declare, it also allows us to do deterministic searching depending on the given input.",
+  "version": "1.0.1",
+  "main": "./dist/src/index.js",
+  "types": "./dist/index.d.ts",
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NM711/LexerRuleGenerator.git"
+  },
+  "keywords": [
+    "lexer",
+    "js",
+    "ts"
+  ],
+  "author": "NM711",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/NM711/LexerRuleGenerator/issues"
+  },
+  "homepage": "https://github.com/NM711/LexerRuleGenerator#readme"
 }
