@@ -5,6 +5,7 @@
 As a someone who has recently gotten into interpreters and language design I have needed to build lexers,
 which by themselves are quite easy to build but, they are also quite annoying. So I decided to make this
 tool, in order to simplify the tokenization process in future projects.
+I would not say it is perfect but, this is my attempt to make a configurable lexer.
 
 BioGen is a relatively simple lexer rule generator it provides an easy to use api, in which you can declare
 different token rules, transitions, and also set different options related to them.
